@@ -237,28 +237,6 @@ RUN --mount=type=cache,id=openclaw-bookworm-apt-cache,target=/var/cache/apt,shar
     fi
 
 # Expose the CLI binary without requiring npm global writes as non-root.
-RUN ln -sf /app/openclaw.mjs /usr/local/bin/openclaw \
- && chmod 755 /app/openclaw.mjs
-
-ENV NODE_ENV=production
-
-# Security hardening: Run as non-root user
-# The node:24-bookworm image includes a 'node' user (uid 1000)
-# This reduces the attack surface by preventing container escape via root privileges
-USER node
-
-# Start gateway server with default config.
-# Binds to loopback (127.0.0.1) by default for security.
-#
-# IMPORTANT: With Docker bridge networking (-p 18789:18789), loopback bind
-# makes the gateway unreachable from the host. Either:
-#   - Use --network host, OR
-#   - Override --bind to "lan" (0.0.0.0) and set auth credentials
-#
-# Built-in probe endpoints for container health checks:
-#   - GET /healthz (liveness) and GET /readyz (readiness)
-#   - aliases: /health and /ready
-# For external access from host/ingress, override bind to "lan" and set auth.
 ENV NODE_ENV=production
 USER node
 EXPOSE 18789
