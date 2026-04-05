@@ -241,6 +241,9 @@ ENV NODE_ENV=production
 
 USER node
 
+# Remove the CLI symlink so the gateway actually starts
+RUN rm -f /usr/local/bin/openclaw
+
 EXPOSE 18789
 
 CMD ["node", "dist/index.js"]
