@@ -238,6 +238,9 @@ RUN --mount=type=cache,id=openclaw-bookworm-apt-cache,target=/var/cache/apt,shar
 
 # Expose the CLI binary without requiring npm global writes as non-root.
 ENV NODE_ENV=production
+
 USER node
+
 EXPOSE 18789
+
 CMD ["node", "dist/index.js"]
