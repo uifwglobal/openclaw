@@ -259,5 +259,7 @@ USER node
 #   - GET /healthz (liveness) and GET /readyz (readiness)
 #   - aliases: /health and /ready
 # For external access from host/ingress, override bind to "lan" and set auth.
+ENV NODE_ENV=production
+USER node
 EXPOSE 18789
 CMD ["node", "dist/index.js"]
