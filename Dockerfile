@@ -260,6 +260,7 @@ USER node
 #   - aliases: /health and /ready
 # For external access from host/ingress, override bind to "lan" and set auth.
 EXPOSE 18789
+CMD ["node", "dist/index.js"]
 HEALTHCHECK --interval=3m --timeout=10s --start-period=15s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:18789/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 CMD ["node", "openclaw.mjs", "gateway", "--allow-unconfigured"]
